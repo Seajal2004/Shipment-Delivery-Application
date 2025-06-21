@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { collection, onSnapshot, doc, updateDoc } from 'firebase/firestore';
-import { Package, Truck, CheckCircle, Clock } from 'lucide-react';
+import { Package, Truck, CheckCircle, Clock, Shield } from 'lucide-react';
+import { useAdmin } from '../hooks/useAdmin';
+import toast from 'react-hot-toast';
 
 const AdminPanel = () => {
+  const { isAdmin } = useAdmin();
   const [shipments, setShipments] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Shield className="mx-auto h-12 w-12 text-red-500" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Access Denied</h3>
+          <p className="mt-1 text-sm text-gray-500">You don't have admin privileges.</p>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'shipments'), (snapshot) => {
@@ -25,8 +40,23 @@ const AdminPanel = () => {
         status: newStatus,
         updatedAt: new Date()
       });
+      toast.success(`Status updated to ${newStatus.replace('-', ' ')}`);
     } catch (error) {
+      toast.error('Failed to update status');
       console.error('Error updating status:', error);
+    }
+  };
+
+  const verifyPayment = async (shipmentId) => {
+    try {
+      await updateDoc(doc(db, 'shipments', shipmentId), {
+        paymentStatus: 'verified',
+        updatedAt: new Date()
+      });
+      toast.success('Payment verified successfully');
+    } catch (error) {
+      toast.error('Failed to verify payment');
+      console.error('Error verifying payment:', error);
     }
   };
 
@@ -48,7 +78,15 @@ const AdminPanel = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Admin Panel</h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+            <Shield className="h-8 w-8 mr-3 text-red-600" />
+            Admin Panel
+          </h1>
+          <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
+            Admin Access Only
+          </div>
+        </div>
         
         <div className="bg-white shadow rounded-lg overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
@@ -58,6 +96,7 @@ const AdminPanel = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sender</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Receiver</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Payment</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
@@ -79,28 +118,47 @@ const AdminPanel = () => {
                       <span className="ml-2 text-sm text-gray-900 capitalize">
                         {shipment.status?.replace('-', ' ')}
                       </span>
-                      {shipment.paymentStatus === 'pending-verification' && (
-                        <span className="ml-2 text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
-                          Payment Pending
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex flex-col">
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        shipment.paymentStatus === 'verified' 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {shipment.paymentStatus === 'verified' ? 'Verified' : 'Pending'}
+                      </span>
+                      {shipment.amount && (
+                        <span className="text-xs text-gray-500 mt-1">₹{shipment.amount}</span>
+                      )}
+                      {shipment.transactionId && (
+                        <span className="text-xs text-gray-400 mt-1">
+                          TXN: {shipment.transactionId.slice(0, 8)}...
                         </span>
                       )}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <select
-                      value={shipment.status}
-                      onChange={(e) => updateStatus(shipment.id, e.target.value)}
-                      className="border border-gray-300 rounded px-3 py-1 text-sm"
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="in-transit">In Transit</option>
-                      <option value="delivered">Delivered</option>
-                    </select>
-                    {shipment.transactionId && (
-                      <div className="text-xs text-gray-500 mt-1">
-                        TXN: {shipment.transactionId}
-                      </div>
-                    )}
+                    <div className="flex flex-col space-y-2">
+                      <select
+                        value={shipment.status}
+                        onChange={(e) => updateStatus(shipment.id, e.target.value)}
+                        className="border border-gray-300 rounded px-2 py-1 text-xs"
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="in-transit">In Transit</option>
+                        <option value="delivered">Delivered</option>
+                      </select>
+                      {shipment.paymentStatus === 'pending-verification' && (
+                        <button
+                          onClick={() => verifyPayment(shipment.id)}
+                          className="bg-green-600 text-white px-2 py-1 rounded text-xs hover:bg-green-700"
+                        >
+                          Verify Payment
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

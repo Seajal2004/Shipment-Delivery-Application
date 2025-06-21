@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useAdmin } from '../hooks/useAdmin';
 import { Package, LogOut } from 'lucide-react';
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
+  const { isAdmin } = useAdmin();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -29,7 +31,12 @@ const Navbar = () => {
             <div className="flex items-center space-x-4">
               <Link to="/dashboard" className="hover:text-blue-200">Dashboard</Link>
               <Link to="/create-shipment" className="hover:text-blue-200">New Shipment</Link>
-              <Link to="/admin" className="hover:text-blue-200">Admin</Link>
+              <Link to="/analytics" className="hover:text-blue-200">Analytics</Link>
+              {isAdmin && (
+                <Link to="/admin" className="hover:text-blue-200 bg-blue-700 px-2 py-1 rounded">
+                  Admin
+                </Link>
+              )}
               <button onClick={handleLogout} className="flex items-center space-x-1 hover:text-blue-200">
                 <LogOut className="h-4 w-4" />
                 <span>Logout</span>

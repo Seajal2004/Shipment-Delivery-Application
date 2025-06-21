@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /shipments/{document} {
+      // Anyone can read shipments for tracking
+      allow read: if true;
+      
+      // Users can create their own shipments
+      allow create: if request.auth != null && 
+                   request.auth.uid == request.resource.data.userId;
+      
+      // Users can only update their own shipments (except status and paymentStatus)
+      allow update: if request.auth != null && 
+                   request.auth.uid == resource.data.userId &&
+                   !('status' in request.resource.data.diff(resource.data).affectedKeys()) &&
+                   !('paymentStatus' in request.resource.data.diff(resource.data).affectedKeys());
+      
+      // Only admins can update status and paymentStatus
+      allow update: if request.auth != null && 
+                   request.auth.token.email in ['namansingla@myyahoo.com', 'namansingla7642@gmail.com'];
+    }
+  }
+}

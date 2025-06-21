@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { Package, User, MapPin } from 'lucide-react';
+import { Package, User, MapPin, Calculator } from 'lucide-react';
+import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 import UPIPayment from '../components/UPIPayment';
 
 const CreateShipment = () => {
@@ -62,8 +64,10 @@ const CreateShipment = () => {
         createdAt: new Date(),
         updatedAt: new Date()
       });
+      toast.success(`Shipment created! Tracking: ${trackingNumber}`);
       navigate('/dashboard');
     } catch (error) {
+      toast.error('Failed to create shipment');
       console.error('Error creating shipment:', error);
     }
     setLoading(false);
@@ -71,9 +75,14 @@ const CreateShipment = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-3xl mx-auto px-4">
-        <div className="bg-white shadow rounded-lg">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <motion.div 
+          className="bg-white shadow-xl rounded-2xl overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="px-6 py-4 border-b border-gray-200">
             <h1 className="text-2xl font-bold text-gray-900 flex items-center">
               <Package className="h-6 w-6 mr-2" />
@@ -165,7 +174,18 @@ const CreateShipment = () => {
             </div>
 
             <div className="border-t pt-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Package Details</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                <Calculator className="h-5 w-5 mr-2" />
+                Package Details & Pricing
+              </h3>
+              
+              {formData.packageSize && formData.packageWeight && (
+                <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+                  <p className="text-sm text-blue-800">
+                    Estimated Cost: ₹{calculateCost()}
+                  </p>
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Size</label>
@@ -224,7 +244,7 @@ const CreateShipment = () => {
               </button>
             </div>
           </form>
-        </div>
+        </motion.div>
         
         {showPayment && (
           <UPIPayment
