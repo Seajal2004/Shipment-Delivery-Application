@@ -40,7 +40,9 @@ const TrackShipment = () => {
     const steps = [
       { key: 'pending', label: 'Order Placed', icon: Package },
       { key: 'in-transit', label: 'In Transit', icon: Truck },
-      { key: 'delivered', label: 'Delivered', icon: CheckCircle }
+      { key: 'delivered', label: 'Delivered', icon: CheckCircle },
+      { key: 'not-delivered', label: 'Not Delivered', icon: Package },
+      { key: 'returned', label: 'Returned', icon: Package }
     ];
 
     const currentIndex = steps.findIndex(step => step.key === shipment?.status);

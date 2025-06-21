@@ -75,26 +75,29 @@ const CreateShipment = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
-      <div className="max-w-4xl mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-100 py-12">
+      <div className="max-w-5xl mx-auto px-4">
         <motion.div 
-          className="bg-white shadow-xl rounded-2xl overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
+          className="bg-white/90 backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden border border-white/20"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center">
-              <Package className="h-6 w-6 mr-2" />
+          <div className="px-10 py-8 bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 text-white">
+            <h1 className="text-3xl font-bold mb-2 flex items-center">
+              <Package className="h-8 w-8 mr-3" />
               Create New Shipment
             </h1>
+            <p className="text-blue-100 text-lg">Fill in the details to create your professional shipment</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-gray-900 flex items-center">
-                  <User className="h-5 w-5 mr-2" />
+          <form onSubmit={handleSubmit} className="p-10 space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold text-gray-900 flex items-center pb-4 border-b border-gray-200">
+                  <div className="bg-blue-100 p-2 rounded-xl mr-3">
+                    <User className="h-6 w-6 text-blue-600" />
+                  </div>
                   Sender Information
                 </h3>
                 <div>
@@ -103,9 +106,10 @@ const CreateShipment = () => {
                     type="text"
                     name="senderName"
                     required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
                     value={formData.senderName}
                     onChange={handleChange}
+                    placeholder="Enter sender's full name"
                   />
                 </div>
                 <div>
@@ -132,9 +136,11 @@ const CreateShipment = () => {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-gray-900 flex items-center">
-                  <MapPin className="h-5 w-5 mr-2" />
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold text-gray-900 flex items-center pb-4 border-b border-gray-200">
+                  <div className="bg-green-100 p-2 rounded-xl mr-3">
+                    <MapPin className="h-6 w-6 text-green-600" />
+                  </div>
                   Receiver Information
                 </h3>
                 <div>

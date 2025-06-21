@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Mail, Lock } from 'lucide-react';
+import { Mail, Lock, Package, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,75 +19,109 @@ const Login = () => {
       setError('');
       setLoading(true);
       await login(email, password);
+      toast.success('Welcome back!');
       navigate('/dashboard');
     } catch (error) {
       setError('Failed to log in');
+      toast.error('Login failed. Please check your credentials.');
     }
     setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">{error}</div>}
-          
-          <div className="space-y-4">
-            <div>
-              <label className="sr-only">Email address</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <input
-                  type="email"
-                  required
-                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center justify-center p-4">
+      {/* Background Animation */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
+      </div>
+
+      <motion.div 
+        className="relative max-w-md w-full"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8">
+          <div className="text-center mb-8">
+            <div className="flex justify-center mb-4">
+              <div className="bg-blue-600 p-3 rounded-2xl">
+                <Package className="h-8 w-8 text-white" />
               </div>
             </div>
-            <div>
-              <label className="sr-only">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <input
-                  type="password"
-                  required
-                  className="pl-10 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Welcome Back
+            </h2>
+            <p className="text-blue-200">Sign in to your ShipTrack account</p>
           </div>
 
-          <div>
-            <button
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {error && (
+              <motion.div 
+                className="bg-red-500/20 border border-red-400/50 text-red-100 px-4 py-3 rounded-xl backdrop-blur-sm"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+              >
+                {error}
+              </motion.div>
+            )}
+          
+            <div className="space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-blue-200 mb-2">Email Address</label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-4 h-5 w-5 text-blue-300" />
+                  <input
+                    type="email"
+                    required
+                    className="pl-12 w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-blue-200 backdrop-blur-sm transition-all duration-200"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-blue-200 mb-2">Password</label>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-4 h-5 w-5 text-blue-300" />
+                  <input
+                    type="password"
+                    required
+                    className="pl-12 w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-blue-200 backdrop-blur-sm transition-all duration-200"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <motion.button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-full flex justify-center items-center space-x-2 py-4 px-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {loading ? 'Signing in...' : 'Sign in'}
-            </button>
-          </div>
+              <span>{loading ? 'Signing in...' : 'Sign In'}</span>
+              {!loading && <ArrowRight className="h-5 w-5" />}
+            </motion.button>
 
-          <div className="text-center">
-            <span className="text-sm text-gray-600">
-              Don't have an account?{' '}
-              <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
-                Sign up
-              </Link>
-            </span>
-          </div>
-        </form>
-      </div>
+            <div className="text-center">
+              <span className="text-blue-200">
+                Don't have an account?{' '}
+                <Link 
+                  to="/register" 
+                  className="font-semibold text-white hover:text-blue-300 transition-colors duration-200 underline decoration-2 underline-offset-2"
+                >
+                  Create Account
+                </Link>
+              </span>
+            </div>
+          </form>
+        </div>
+      </motion.div>
     </div>
   );
 };

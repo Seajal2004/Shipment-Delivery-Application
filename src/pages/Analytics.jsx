@@ -63,24 +63,24 @@ const Analytics = () => {
   const statusDistribution = getStatusDistribution();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 py-8">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-12"
         >
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <BarChart3 className="h-8 w-8 mr-3 text-purple-600" />
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent flex items-center">
+            <BarChart3 className="h-12 w-12 mr-4 text-purple-600" />
             Analytics Dashboard
           </h1>
-          <p className="text-gray-600 mt-2">Track your shipment performance and insights</p>
+          <p className="text-gray-600 mt-4 text-xl">Track your shipment performance and business insights</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <motion.div
-            className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-xl shadow-lg text-white"
-            initial={{ opacity: 0, scale: 0.9 }}
+            className="bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 p-8 rounded-3xl shadow-2xl text-white transform hover:scale-105 transition-all duration-300"
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
           >
@@ -94,8 +94,8 @@ const Analytics = () => {
           </motion.div>
 
           <motion.div
-            className="bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-xl shadow-lg text-white"
-            initial={{ opacity: 0, scale: 0.9 }}
+            className="bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 p-8 rounded-3xl shadow-2xl text-white transform hover:scale-105 transition-all duration-300"
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
           >
@@ -109,8 +109,8 @@ const Analytics = () => {
           </motion.div>
 
           <motion.div
-            className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 rounded-xl shadow-lg text-white"
-            initial={{ opacity: 0, scale: 0.9 }}
+            className="bg-gradient-to-br from-purple-500 via-violet-600 to-indigo-600 p-8 rounded-3xl shadow-2xl text-white transform hover:scale-105 transition-all duration-300"
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
           >
@@ -126,8 +126,8 @@ const Analytics = () => {
           </motion.div>
 
           <motion.div
-            className="bg-gradient-to-r from-orange-500 to-red-500 p-6 rounded-xl shadow-lg text-white"
-            initial={{ opacity: 0, scale: 0.9 }}
+            className="bg-gradient-to-br from-orange-500 via-red-500 to-pink-600 p-8 rounded-3xl shadow-2xl text-white transform hover:scale-105 transition-all duration-300"
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4 }}
           >
@@ -145,8 +145,8 @@ const Analytics = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <motion.div
-            className="bg-white p-6 rounded-xl shadow-lg"
-            initial={{ opacity: 0, x: -20 }}
+            className="bg-white/90 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white/20"
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
           >
@@ -173,8 +173,8 @@ const Analytics = () => {
           </motion.div>
 
           <motion.div
-            className="bg-white p-6 rounded-xl shadow-lg"
-            initial={{ opacity: 0, x: 20 }}
+            className="bg-white/90 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white/20"
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
           >
