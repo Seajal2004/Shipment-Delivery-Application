@@ -3,7 +3,7 @@
 A modern, full-stack web application for shipment tracking and logistics management with real-time updates, integrated payments, and professional UI/UX design.
 
 ## 🚀 Live Demo
-[View Live Application](your-deployment-url-here)
+[View Live Application](https://shipment-delivery-application.netlify.app/)
 
 ## 📋 Project Overview
 
@@ -111,8 +111,8 @@ shipment-delivery-application/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/shipment-delivery-application.git
-   cd shipment-delivery-application
+   git clone https://github.com/namansingla-coder/Shipment-Delivery-Application.git
+   cd Shipment-Delivery-Application
    ```
 
 2. **Install dependencies**
@@ -263,14 +263,13 @@ firebase deploy
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 
 **Naman Singla**
-- Email: namansingla7642@gmail.com
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- GitHub: [Your GitHub Profile](https://github.com/yourusername)
+- Email: namansingla@myyahoo.com
+- Portfolio: https://namansingla-blog.netlify.app
 
 ## 🙏 Acknowledgments
 
