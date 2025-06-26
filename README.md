@@ -3,6 +3,7 @@
 A modern, full-stack web application for shipment tracking and logistics management with real-time updates, integrated payments, and professional UI/UX design.
 
 ## 🚀 Live Demo
+
 [View Live Application](https://shipment-delivery-application.netlify.app/)
 
 ## 📋 Project Overview
@@ -12,36 +13,42 @@ ShipTrack is a comprehensive logistics management platform that enables users to
 ## ✨ Key Features
 
 ### 🔐 Authentication & Security
+
 - **Secure Firebase Authentication** with email/password
 - **Role-based Access Control** (Admin/User permissions)
 - **Protected Routes** with authentication guards
 - **Modern Login/Register Pages** with glassmorphism design
 
 ### 📦 Shipment Management
+
 - **Create Shipments** with detailed sender/receiver information
 - **Real-time Tracking** with unique tracking numbers (ST + timestamp)
 - **Multi-status Tracking**: Pending → In Transit → Delivered/Not Delivered/Returned
 - **Package Details** with size, weight, and description
 
 ### 💳 Payment Integration
+
 - **UPI Payment System** with QR code generation
 - **Dynamic Pricing Calculator** based on package specifications
 - **Real-time Payment Verification** by admins
 - **Transaction Tracking** and payment status management
 
 ### 👨‍💼 Admin Panel
+
 - **Comprehensive Dashboard** for all shipments oversight
 - **Payment Verification System** for transaction approval
 - **Status Update Controls** for shipment lifecycle management
 - **User Activity Monitoring** and system analytics
 
 ### 📊 Analytics Dashboard
+
 - **Real-time Statistics** with animated counters
 - **Performance Metrics**: Success rates, revenue tracking
 - **Business Intelligence** with visual data representation
 - **Live Data Updates** from database
 
 ### 🎨 Modern UI/UX Design
+
 - **Glassmorphism Effects** with backdrop blur and transparency
 - **Gradient Backgrounds** and professional color schemes
 - **Framer Motion Animations** and micro-interactions
@@ -51,6 +58,7 @@ ShipTrack is a comprehensive logistics management platform that enables users to
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React.js 18** - Modern UI library
 - **Vite** - Fast build tool and dev server
 - **Tailwind CSS** - Utility-first CSS framework
@@ -59,11 +67,13 @@ ShipTrack is a comprehensive logistics management platform that enables users to
 - **Lucide React** - Modern icon library
 
 ### Backend & Database
+
 - **Firebase Firestore** - NoSQL real-time database
 - **Firebase Authentication** - User management
 - **Firebase Security Rules** - Data protection
 
 ### Additional Libraries
+
 - **React Hot Toast** - Notification system
 - **Date-fns** - Date manipulation
 - **React Intersection Observer** - Scroll animations
@@ -103,6 +113,7 @@ shipment-delivery-application/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - npm or yarn
 - Firebase project setup
@@ -110,18 +121,21 @@ shipment-delivery-application/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/namansingla-coder/Shipment-Delivery-Application.git
    cd Shipment-Delivery-Application
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Setup**
    Create a `.env` file in the root directory:
+
    ```env
    VITE_UPI_ID=your-upi-id@bank
    VITE_FIREBASE_API_KEY=your-firebase-api-key
@@ -135,23 +149,25 @@ shipment-delivery-application/
    ```
 
 4. **Firebase Setup**
+
    - Create a Firebase project
    - Enable Firestore Database
    - Enable Authentication (Email/Password)
    - Update Firestore Security Rules:
+
    ```javascript
    rules_version = '2';
    service cloud.firestore {
      match /databases/{database}/documents {
        match /shipments/{document} {
          allow read: if true;
-         allow create: if request.auth != null && 
+         allow create: if request.auth != null &&
                       request.auth.uid == request.resource.data.userId;
-         allow update: if request.auth != null && 
+         allow update: if request.auth != null &&
                       request.auth.uid == resource.data.userId &&
                       !('status' in request.resource.data.diff(resource.data).affectedKeys()) &&
                       !('paymentStatus' in request.resource.data.diff(resource.data).affectedKeys());
-         allow update: if request.auth != null && 
+         allow update: if request.auth != null &&
                       request.auth.token.email in ['your-admin@email.com'];
        }
      }
@@ -159,6 +175,7 @@ shipment-delivery-application/
    ```
 
 5. **Start the development server**
+
    ```bash
    npm run dev
    ```
@@ -171,6 +188,7 @@ shipment-delivery-application/
 ## 🎯 Usage
 
 ### For Users
+
 1. **Register/Login** to access the platform
 2. **Create Shipments** with sender/receiver details
 3. **Make Payments** using UPI integration
@@ -178,6 +196,7 @@ shipment-delivery-application/
 5. **View Analytics** of your shipping activity
 
 ### For Admins
+
 1. **Login with admin email** (configured in environment)
 2. **Access Admin Panel** to manage all shipments
 3. **Verify Payments** and approve transactions
@@ -187,13 +206,17 @@ shipment-delivery-application/
 ## 🔧 Configuration
 
 ### Admin Setup
+
 Add admin email addresses to the `VITE_ADMIN_EMAILS` environment variable:
+
 ```env
 VITE_ADMIN_EMAILS=admin@company.com,manager@company.com
 ```
 
 ### Payment Configuration
+
 Configure UPI ID for payment processing:
+
 ```env
 VITE_UPI_ID=your-business-upi@bank
 ```
@@ -201,6 +224,7 @@ VITE_UPI_ID=your-business-upi@bank
 ## 📱 Features Breakdown
 
 ### Shipment Status Flow
+
 1. **Pending** - Initial status after creation
 2. **In Transit** - Package is being delivered
 3. **Delivered** - Successfully delivered
@@ -208,6 +232,7 @@ VITE_UPI_ID=your-business-upi@bank
 5. **Returned** - Package returned to sender
 
 ### Payment Process
+
 1. User creates shipment with package details
 2. System calculates cost based on size/weight
 3. UPI QR code generated for payment
@@ -215,6 +240,7 @@ VITE_UPI_ID=your-business-upi@bank
 5. Shipment status updated to active
 
 ### Real-time Features
+
 - Live shipment status updates
 - Real-time payment verification
 - Dynamic statistics on homepage
@@ -240,11 +266,13 @@ VITE_UPI_ID=your-business-upi@bank
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
+
 1. Connect your GitHub repository to Vercel
 2. Add environment variables in Vercel dashboard
 3. Deploy automatically on push to main branch
 
 ### Firebase Hosting
+
 ```bash
 npm install -g firebase-tools
 firebase login
@@ -264,12 +292,6 @@ firebase deploy
 ## 📄 License
 
 This project is licensed under the MIT License.
-
-## 👨‍💻 Author
-
-**Naman Singla**
-- Email: namansingla@myyahoo.com
-- Portfolio: https://namansingla-blog.netlify.app
 
 ## 🙏 Acknowledgments
 
