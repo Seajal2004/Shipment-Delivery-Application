@@ -5,8 +5,8 @@ import { Package, Mail, Phone, MapPin, Twitter, Facebook, Instagram, Linkedin } 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
@@ -16,12 +16,12 @@ const Footer = () => {
             <p className="text-gray-400 leading-relaxed">
               Professional logistics and shipment tracking platform designed for modern businesses.
             </p>
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               <Twitter className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
               <Facebook className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
               <Instagram className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
               <Linkedin className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-            </div>
+            </div> */}
           </div>
 
           {/* Quick Links */}
@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div>
+          {/* <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
@@ -64,13 +64,13 @@ const Footer = () => {
                 <span className="text-gray-400">Gurugram, India</span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 ShipTrack. All rights reserved.
+              © 2025 ShipTrack. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link to="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
